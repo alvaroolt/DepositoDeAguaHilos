@@ -32,7 +32,7 @@ public class Deposito {
 	}
 	
 	public void llena() {
-		capacidad++;
+		this.capacidad++;
 	}
 	
 	public void vacia() {
