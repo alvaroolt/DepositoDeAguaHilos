@@ -11,13 +11,14 @@ public class Llenar extends Thread{
 			for (int i = dep.getCapacidad(); i < dep.getCapacidadMax(); i++) {
 				dep.llena();
 				System.out.println(dep.getCapacidad());
+				
 				try {
-					Thread.sleep(100);
+					Thread.sleep(500);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 			}
 		}
-		System.out.println("Capacidad: " + dep.getCapacidad());
+//		System.out.println("Capacidad: " + dep.getCapacidad());
 	}
 }

@@ -8,8 +8,15 @@ public class Vaciar extends Thread {
 	
 	public void run() {
 		synchronized (dep) {
-			for (int i = 0; i < 100; i++) {
+			for (int i = dep.getCapacidad(); i < dep.getCapacidadMax(); i++) {
 				dep.vacia();
+				System.out.println(dep.getCapacidad());
+				
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 	}
