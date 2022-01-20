@@ -29,6 +29,7 @@ public class Ejecutable {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -47,6 +48,8 @@ public class Ejecutable {
 	 */
 	public Ejecutable() {
 		initialize();
+//		l1.start();
+//		v2.start();
 	}
 
 	/**
@@ -61,17 +64,33 @@ public class Ejecutable {
 		btnLlenar1 = new JButton("Llenar");
 		btnLlenar1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				l1.getSuspendido().setSuspendido(false);
-				v2.getSuspendido().setSuspendido(false);
-				l2.getSuspendido().setSuspendido(true);
-				v1.getSuspendido().setSuspendido(true);
-				l1.start();
-				v2.start();
-				estadoBoton(btnLlenar1, false, "Llenando", 10);
+//				l1.getSuspendido().setSuspendido(false);
+//				v2.getSuspendido().setSuspendido(false);
+//				l2.getSuspendido().setSuspendido(true);
+//				v1.getSuspendido().setSuspendido(true);
+//				l1.start();
+//				v2.start();
 //				lblDeposito1.setText(d1.getCapacidad() + "%");
-				
-				if (!btnLlenar2.isEnabled()) {
-					estadoBoton(btnLlenar2, true, "Llenar", 14);
+
+				if (d1.getCapacidad() == d1.getCapacidadMax()) {
+					estadoBoton(btnLlenar1, false, "Lleno", 10);
+				} else {
+					if (!l1.isAlive() && !v2.isAlive()) {
+						l1.start();
+						v2.start();
+					}
+					l1.getSuspendido().setSuspendido(false);
+					v2.getSuspendido().setSuspendido(false);
+
+					estadoBoton(btnLlenar1, false, "Llenando", 10);
+					estadoBoton(btnLlenar2, false, "Vaciándose", 9);
+
+//					l1.getSuspendido().setSuspendido(false);
+//					v2.getSuspendido().setSuspendido(false);
+
+					if (!btnLlenar2.isEnabled()) {
+						estadoBoton(btnLlenar2, true, "Llenar", 14);
+					}
 				}
 
 			}
@@ -83,17 +102,29 @@ public class Ejecutable {
 		btnLlenar2 = new JButton("Llenar");
 		btnLlenar2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				l2.getSuspendido().setSuspendido(false);
-				v1.getSuspendido().setSuspendido(false);
-				l1.getSuspendido().setSuspendido(true);
-				v2.getSuspendido().setSuspendido(true);
-				l2.start();
-				v1.start();
-				estadoBoton(btnLlenar2, false, "Llenando", 10);
-//				lblDeposito2.setText(d2.getCapacidad() + "%");
-				
-				if (!btnLlenar1.isEnabled()) {
-					estadoBoton(btnLlenar1, true, "Llenar", 14);
+//				l2.getSuspendido().setSuspendido(false);
+//				v1.getSuspendido().setSuspendido(false);
+//				l1.getSuspendido().setSuspendido(true);
+//				v2.getSuspendido().setSuspendido(true);
+//				l2.start();
+//				v1.start();
+				if (d2.getCapacidad() == d2.getCapacidadMax()) {
+					estadoBoton(btnLlenar2, false, "Lleno", 10);
+				} else {
+					if (!l2.isAlive() && !v1.isAlive()) {
+						l2.start();
+						v1.start();
+					}
+					l2.getSuspendido().setSuspendido(false);
+					v1.getSuspendido().setSuspendido(false);
+
+					estadoBoton(btnLlenar2, false, "Llenando", 10);
+					estadoBoton(btnLlenar1, false, "Vaciandose", 9);
+					
+
+					if (!btnLlenar1.isEnabled()) {
+						estadoBoton(btnLlenar1, true, "Llenar", 14);
+					}
 				}
 			}
 		});
@@ -104,37 +135,42 @@ public class Ejecutable {
 		JButton btnDetener = new JButton("Detener");
 		btnDetener.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (!l1.suspendido.getSuspendido() || !l2.suspendido.getSuspendido() || !v1.suspendido.getSuspendido() || !v2.suspendido.getSuspendido()) {
-					l1.getSuspendido().setSuspendido(true);
-					l2.getSuspendido().setSuspendido(true);
-					v1.getSuspendido().setSuspendido(true);
-					v2.getSuspendido().setSuspendido(true);
-					
-					estadoBoton(btnLlenar1, true, "Llenar", 14);
-					estadoBoton(btnLlenar2, true, "Llenar", 14);
-					System.out.println("Proceso detenido");
-				}
-				
+				l1.getSuspendido().setSuspendido(true);
+				l2.getSuspendido().setSuspendido(true);
+				v1.getSuspendido().setSuspendido(true);
+				v2.getSuspendido().setSuspendido(true);
+
+				estadoBoton(btnLlenar1, true, "Llenar", 14);
+				estadoBoton(btnLlenar2, true, "Llenar", 14);
+				lblDeposito1.setText(d1.getCapacidad() + "%");
+				lblDeposito2.setText(d2.getCapacidad() + "%");
+				System.out.println("Proceso detenido");
+
 			}
 		});
 		btnDetener.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnDetener.setBounds(209, 225, 97, 31);
 		frame.getContentPane().add(btnDetener);
 
-		JButton btnReiniciar = new JButton("Reiniciar");
+		JButton btnReiniciar = new JButton("Finalizar");
+		btnReiniciar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
 		btnReiniciar.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnReiniciar.setBounds(407, 269, 97, 31);
 		frame.getContentPane().add(btnReiniciar);
 
 		lblDeposito1 = new JLabel(d1.getCapacidad() + "%");
 		lblDeposito1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblDeposito1.setFont(new Font("Tahoma", Font.PLAIN, 40));
+		lblDeposito1.setFont(new Font("Tahoma", Font.PLAIN, 34));
 		lblDeposito1.setBounds(78, 65, 102, 107);
 		frame.getContentPane().add(lblDeposito1);
 
 		lblDeposito2 = new JLabel(d2.getCapacidad() + "%");
 		lblDeposito2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblDeposito2.setFont(new Font("Tahoma", Font.PLAIN, 40));
+		lblDeposito2.setFont(new Font("Tahoma", Font.PLAIN, 34));
 		lblDeposito2.setBounds(332, 65, 102, 107);
 		frame.getContentPane().add(lblDeposito2);
 	}

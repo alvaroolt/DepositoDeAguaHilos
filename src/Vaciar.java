@@ -19,14 +19,19 @@ public class Vaciar extends Thread {
 
 	public void run() {
 		synchronized (dep) {
-			
+
+			while (!this.suspendido.getSuspendido()) {
 				for (int i = dep.getCapacidad(); i > 0; i--) {
-					while (!this.suspendido.getSuspendido()) {
 					dep.vacia();
 					System.out.println(dep.getCapacidad() + " (disminuye)");
 
+					if (this.suspendido.getSuspendido()) {
+						break;
+					}
+
 					try {
 						Thread.sleep(100);
+						this.suspendido.waitReanudar();
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
