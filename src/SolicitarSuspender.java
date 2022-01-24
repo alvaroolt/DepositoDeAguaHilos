@@ -9,6 +9,7 @@ public class SolicitarSuspender {
 	public synchronized void setSuspendido(boolean suspendido) {
 		this.suspendido = suspendido;
 		notifyAll();
+		System.out.println("SUSPENDIDO " + suspendido);
 	}
 
 	public synchronized void waitReanudar() throws InterruptedException {
@@ -17,3 +18,4 @@ public class SolicitarSuspender {
 		}
 	}
 }
+

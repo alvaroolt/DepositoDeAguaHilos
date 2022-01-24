@@ -48,8 +48,6 @@ public class Ejecutable {
 	 */
 	public Ejecutable() {
 		initialize();
-//		l1.start();
-//		v2.start();
 	}
 
 	/**
@@ -64,13 +62,6 @@ public class Ejecutable {
 		btnLlenar1 = new JButton("Llenar");
 		btnLlenar1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				l1.getSuspendido().setSuspendido(false);
-//				v2.getSuspendido().setSuspendido(false);
-//				l2.getSuspendido().setSuspendido(true);
-//				v1.getSuspendido().setSuspendido(true);
-//				l1.start();
-//				v2.start();
-//				lblDeposito1.setText(d1.getCapacidad() + "%");
 
 				if (d1.getCapacidad() == d1.getCapacidadMax()) {
 					estadoBoton(btnLlenar1, false, "Lleno", 10);
@@ -79,14 +70,11 @@ public class Ejecutable {
 						l1.start();
 						v2.start();
 					}
-					l1.getSuspendido().setSuspendido(false);
-					v2.getSuspendido().setSuspendido(false);
+					l1.suspendido.setSuspendido(false);
+					v2.suspendido.setSuspendido(false);
 
 					estadoBoton(btnLlenar1, false, "Llenando", 10);
 					estadoBoton(btnLlenar2, false, "Vaciándose", 9);
-
-//					l1.getSuspendido().setSuspendido(false);
-//					v2.getSuspendido().setSuspendido(false);
 
 					if (!btnLlenar2.isEnabled()) {
 						estadoBoton(btnLlenar2, true, "Llenar", 14);
@@ -102,25 +90,21 @@ public class Ejecutable {
 		btnLlenar2 = new JButton("Llenar");
 		btnLlenar2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				l2.getSuspendido().setSuspendido(false);
-//				v1.getSuspendido().setSuspendido(false);
-//				l1.getSuspendido().setSuspendido(true);
-//				v2.getSuspendido().setSuspendido(true);
-//				l2.start();
-//				v1.start();
+
 				if (d2.getCapacidad() == d2.getCapacidadMax()) {
 					estadoBoton(btnLlenar2, false, "Lleno", 10);
 				} else {
 					if (!l2.isAlive() && !v1.isAlive()) {
+						System.out.println("he entrado");
 						l2.start();
 						v1.start();
 					}
-					l2.getSuspendido().setSuspendido(false);
-					v1.getSuspendido().setSuspendido(false);
+
+					l2.suspendido.setSuspendido(false);
+					v1.suspendido.setSuspendido(false);
 
 					estadoBoton(btnLlenar2, false, "Llenando", 10);
 					estadoBoton(btnLlenar1, false, "Vaciandose", 9);
-					
 
 					if (!btnLlenar1.isEnabled()) {
 						estadoBoton(btnLlenar1, true, "Llenar", 14);
@@ -135,10 +119,11 @@ public class Ejecutable {
 		JButton btnDetener = new JButton("Detener");
 		btnDetener.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				l1.getSuspendido().setSuspendido(true);
-				l2.getSuspendido().setSuspendido(true);
-				v1.getSuspendido().setSuspendido(true);
-				v2.getSuspendido().setSuspendido(true);
+
+				l1.suspendido.setSuspendido(true);
+				l2.suspendido.setSuspendido(true);
+				v1.suspendido.setSuspendido(true);
+				v2.suspendido.setSuspendido(true);
 
 				estadoBoton(btnLlenar1, true, "Llenar", 14);
 				estadoBoton(btnLlenar2, true, "Llenar", 14);

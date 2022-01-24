@@ -9,14 +9,6 @@ public class Vaciar extends Thread {
 
 	SolicitarSuspender suspendido = new SolicitarSuspender();
 
-	public SolicitarSuspender getSuspendido() {
-		return suspendido;
-	}
-
-	public void setSuspendido(SolicitarSuspender suspendido) {
-		this.suspendido = suspendido;
-	}
-
 	public void run() {
 		synchronized (dep) {
 
